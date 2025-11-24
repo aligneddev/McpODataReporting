@@ -1,0 +1,27 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
+  "description": "Reporting Data via ODATA",
+  "name": "io.github.alignedDev/mcpODataReporting",
+  "version": "0.1.0-beta",
+  "packages": [],
+  "repository": {
+    "url": "https://github.com/alignedDev/mcpODataReporting",
+    "source": "github"
+  },
+  "tools": [
+    {
+      "name": "GetData",
+      "description": "An MCP tool that retrieves data from the database using OData queries.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "OData query string to execute against the reporting data source."
+          }
+        },
+        "required": ["query"]
+      }
+    }
+  ]
+}

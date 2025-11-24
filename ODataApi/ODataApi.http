@@ -1,0 +1,21 @@
+@ODataApi_HostAddress = https://localhost:7066
+
+### Get all products
+GET {{ODataApi_HostAddress}}/odata/Products
+
+### Get products with $select
+GET {{ODataApi_HostAddress}}/odata/Products?$select=Id,Name,Price
+
+### Get products with $filter
+GET {{ODataApi_HostAddress}}/odata/Products?$filter=Price gt 100
+
+### Get products with $orderby
+GET {{ODataApi_HostAddress}}/odata/Products?$orderby=Price desc
+
+### Get products with $top and $skip (pagination)
+GET {{ODataApi_HostAddress}}/odata/Products?$top=10&$skip=0
+
+### Get products count
+GET {{ODataApi_HostAddress}}/odata/Products/$count
+
+###

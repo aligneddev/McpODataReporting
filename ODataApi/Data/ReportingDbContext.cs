@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using McpODataReporting.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace McpODataReporting.Data;
+namespace ODataApi.Data;
 
 public partial class ReportingDbContext : DbContext
 {
