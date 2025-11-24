@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace McpODataReporting.Data;
+namespace ODataApi.Data;
 
 public partial class CustomerAddress
 {
+    [Key]
     public int CustomerId { get; set; }
 
+    [Key]
     public int AddressId { get; set; }
 
     public string AddressType { get; set; } = null!;

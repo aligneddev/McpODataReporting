@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace McpODataReporting.Data;
+﻿namespace ODataApi.Data;
 
 public partial class VProductModelCatalogDescription
 {

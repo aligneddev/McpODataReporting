@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace McpODataReporting.Data;
+namespace ODataApi.Data;
 
 public partial class ProductModelProductDescription
 {
+    [Key]
     public int ProductModelId { get; set; }
 
+    [Key]
     public int ProductDescriptionId { get; set; }
 
+    [Key]
     public string Culture { get; set; } = null!;
 
     public Guid Rowguid { get; set; }

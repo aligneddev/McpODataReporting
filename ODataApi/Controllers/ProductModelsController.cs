@@ -6,24 +6,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ODataApi.Controllers;
 
-public class ProductsController(ReportingDbContext context) : ODataController
+public class ProductModelsController(ReportingDbContext context) : ODataController
 {
     [EnableQuery]
     public IActionResult Get()
     {
-        return Ok(context.Products);
+        return Ok(context.ProductModels);
     }
 
     [EnableQuery]
     public async Task<IActionResult> Get([FromRoute] int key)
     {
-        var product = await context.Products.FirstOrDefaultAsync(p => p.ProductId == key);
+        var productModel = await context.ProductModels.FirstOrDefaultAsync(pm => pm.ProductModelId == key);
         
-        if (product == null)
+        if (productModel == null)
         {
             return NotFound();
         }
         
-        return Ok(product);
+        return Ok(productModel);
     }
 }

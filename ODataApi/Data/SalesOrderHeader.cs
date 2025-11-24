@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace McpODataReporting.Data;
+namespace ODataApi.Data;
 
 public partial class SalesOrderHeader
 {
+    [Key]
     public int SalesOrderId { get; set; }
 
     public byte RevisionNumber { get; set; }

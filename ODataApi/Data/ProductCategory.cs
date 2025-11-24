@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace McpODataReporting.Data;
+namespace ODataApi.Data;
 
 public partial class ProductCategory
 {
+    [Key]
     public int ProductCategoryId { get; set; }
 
     public int? ParentProductCategoryId { get; set; }

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace McpODataReporting.Data;
+namespace ODataApi.Data;
 
 public partial class SalesOrderDetail
 {
+    [Key]
     public int SalesOrderId { get; set; }
 
+    [Key]
     public int SalesOrderDetailId { get; set; }
 
     public short OrderQty { get; set; }

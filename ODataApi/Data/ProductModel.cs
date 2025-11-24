@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace McpODataReporting.Data;
+namespace ODataApi.Data;
 
 public partial class ProductModel
 {
+    [Key]
     public int ProductModelId { get; set; }
 
     public string Name { get; set; } = null!;

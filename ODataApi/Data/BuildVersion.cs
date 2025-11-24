@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace McpODataReporting.Data;
+namespace ODataApi.Data;
 
 public partial class BuildVersion
 {
+    [Key]
     public byte SystemInformationId { get; set; }
 
     public string DatabaseVersion { get; set; } = null!;

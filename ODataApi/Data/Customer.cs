@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace McpODataReporting.Data;
+namespace ODataApi.Data;
 
 public partial class Customer
 {
+    [Key]
     public int CustomerId { get; set; }
 
     public bool NameStyle { get; set; }

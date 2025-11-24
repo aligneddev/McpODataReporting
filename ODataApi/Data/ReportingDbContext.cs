@@ -1,4 +1,4 @@
-﻿using McpODataReporting.Data;
+﻿using ODataApi.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace ODataApi.Data;

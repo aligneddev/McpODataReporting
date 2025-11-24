@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace McpODataReporting.Data;
+namespace ODataApi.Data;
 
 public partial class ErrorLog
 {
+    [Key]
     public int ErrorLogId { get; set; }
 
     public DateTime ErrorTime { get; set; }

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace McpODataReporting.Data;
+namespace ODataApi.Data;
 
 public partial class Address
 {
+    [Key]
     public int AddressId { get; set; }
 
     public string AddressLine1 { get; set; } = null!;
