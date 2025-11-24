@@ -10,14 +10,23 @@
   },
   "tools": [
     {
+      "name": "GetODataMetadata",
+      "description": "Retrieves the OData API schema and available entity sets with their properties. Use this to discover what data is available before querying. Returns information about all entity sets including their keys, properties, and navigation relationships.",
+      "input_schema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    {
       "name": "GetData",
-      "description": "An MCP tool that retrieves data from the database using OData queries.",
+      "description": "Executes OData queries against the reporting database.\n\n## Query Format\nThe query parameter should be in the format: /EntitySetName?$queryOptions\n\n## OData Query Options\n- $filter - Filter results (e.g., Name eq 'John')\n- $select - Choose specific properties (e.g., FirstName,LastName)\n- $orderby - Sort results (e.g., ModifiedDate desc)\n- $expand - Include related entities (e.g., Customer,Product)\n- $top - Limit results (max 100)\n- $skip - Skip results for pagination\n- $count - Get total count of results\n\n## Examples\n- /Customers?$filter=City eq 'Seattle'&$select=FirstName,LastName\n- /Products?$filter=ListPrice gt 100&$orderby=ListPrice desc&$top=10\n- /SalesOrderHeaders?$expand=Customer,SalesOrderDetails\n\n## Important\nUse the GetODataMetadata tool first to discover available entity sets and their properties before querying.",
       "input_schema": {
         "type": "object",
         "properties": {
           "query": {
             "type": "string",
-            "description": "OData query string to execute against the reporting data source."
+            "description": "OData query string to execute against the reporting data source. Format: /EntitySetName?$queryOptions (e.g., /Products?$filter=ListPrice gt 100&$top=10)"
           }
         },
         "required": ["query"]

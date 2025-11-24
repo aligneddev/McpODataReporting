@@ -1,8 +1,5 @@
 @ODataApi_HostAddress = https://localhost:7066
 
-### Get all products
-GET {{ODataApi_HostAddress}}/odata/Products
-
 ### Get products with $select
 GET {{ODataApi_HostAddress}}/odata/Products?$select=Id,Name,Price
 
