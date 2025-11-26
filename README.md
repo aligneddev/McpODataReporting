@@ -121,6 +121,15 @@ Or register the MCP server endpoint from runing locally:
       "url": "http://localhost:63930/runtime/webhooks/mcp/sse"
     },
 ```
+or pointing to the Azure Function
+```json
+
+    "odata-reporting-mcp-function": {
+      "type": "http",
+      "url": "https://mcpodatareporting.internal.{more}.eastus.azurecontainerapps.io/runtime/webhooks/mcp/sse"
+    },
+```
+then VS prompts with "Authentication Required" 
 ### Available MCP Tools
 
 #### GetODataMetadata
@@ -225,6 +234,13 @@ dotnet test
    ```
 
 ## Deployment
+
+deploy to Azure following: https://learn.microsoft.com/en-us/dotnet/aspire/deployment/azd/aca-deployment-github-actions?tabs=windows&pivots=github-actions
+
+`azd init` to initialize the project
+`azd provision` it will prompt you for your Azure SQL connection string and create a new Resource Group
+`azd deploy` to deploy the application
+
 
 ### Publishing the MCP Server
 
