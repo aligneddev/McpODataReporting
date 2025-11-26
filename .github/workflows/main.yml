@@ -56,8 +56,8 @@ jobs:
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
       
-      - name: Install azd
-        uses: Azure/setup-azd@v2
+      - name: Connect azd to Azure CLI session
+        run: azd auth login --use-cli
       
       - name: Deploy with azd
         run: azd deploy --no-prompt
