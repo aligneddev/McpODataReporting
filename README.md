@@ -240,6 +240,7 @@ deploy to Azure following: https://learn.microsoft.com/en-us/dotnet/aspire/deplo
 `azd init` to initialize the project
 `azd provision` it will prompt you for your Azure SQL connection string and create a new Resource Group
 `azd deploy` to deploy the application
+`azd pipeine config` to configure GitHub Actions for CI/CD
 
 
 ### Publishing the MCP Server
