@@ -1,0 +1,31 @@
+name: Aspire .NET Build for PR validation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Restore dependencies
+        run: dotnet restore mcpODataReporting.AppHost/mcpODataReporting.AppHost.csproj
+      - name: Build
+        run: dotnet build mcpODataReporting.AppHost/mcpODataReporting.AppHost.csproj --configuration Release --no-restore
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
+      - name: Publish Aspire AppHost
+        run: dotnet publish mcpODataReporting.AppHost/mcpODataReporting.AppHost.csproj --configuration Release --output ./publish
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: aspire-apphost
+          path: ./publish
