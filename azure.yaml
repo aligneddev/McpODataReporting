@@ -1,8 +1,13 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+﻿# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
 
 name: mcp-odata-reporting
-services:  
-  app:
+services:
+  odataapi:
     language: dotnet
-    project: ./mcpODataReporting.AppHost/mcpODataReporting.AppHost.csproj
+    project: ./ODataApi/ODataApi.csproj
     host: containerapp
+  
+  mcpodatareporting:
+    language: dotnet
+    project: ./MCP/McpODataReporting.csproj
+    host: function  # ← Explicitly define as Function
