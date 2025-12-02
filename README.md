@@ -237,10 +237,17 @@ dotnet test
 
 deploy to Azure following: https://learn.microsoft.com/en-us/dotnet/aspire/deployment/azd/aca-deployment-github-actions?tabs=windows&pivots=github-actions
 
+Since this is using Aspire, you must be in the \mcpODataReporting.AppHost directory or you will have problems and it won't create a infr/main.bicep file and azd up will fail.
+the .azure folder will be in this folder as well.
+
 `azd init` to initialize the project
-`azd provision` it will prompt you for your Azure SQL connection string and create a new Resource Group
-`azd deploy` to deploy the application
-`azd pipeine config` to configure GitHub Actions for CI/CD
+
+`azd pipeline config` setup GitHub Actions for CI/CD
+
+`azd infra gen` will create the bicep file in the `infra` directory
+`azd up` to create the infrastructure and provision, but can be separated to provision and deploy
+  `azd provision` it will prompt you for your Azure SQL connection string and create a new Resource Group
+  `azd deploy` to deploy the application
 
 
 ### Publishing the MCP Server
