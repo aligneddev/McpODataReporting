@@ -2,17 +2,12 @@
 on:
   workflow_dispatch:
   push:
-    # Run when commits are pushed to mainline branch (main or master)
-    # Set this to the mainline branch you are using
     branches:
       - main
 
-# Set up permissions for deploying with secretless Azure federated credentials
-# https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Clinux#set-up-azure-login-with-openid-connect-authentication
 permissions:
   id-token: write
   contents: read
-
 
 jobs:
   build:
@@ -26,15 +21,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Install azd
         uses: Azure/setup-azd@v2
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: | 
-            8.x
-            9.x
-            10.x
+          dotnet-version: 10.x
 
       - name: Log in with Azure (Federated Credentials)
         run: |
@@ -44,14 +38,15 @@ jobs:
             --tenant-id "$Env:AZURE_TENANT_ID"
         shell: pwsh
 
-
-      - name: Provision Infrastructure
+      - name: Provision Infrastructure (azd)
         run: azd provision --no-prompt
+        working-directory: mcpODataReporting.AppHost
         env:
           AZURE_REPORTING_DB: ${{ secrets.AZURE_REPORTING_DB }}
 
-      - name: Deploy Application
+      - name: Deploy Application (azd)
         run: azd deploy --no-prompt
+        working-directory: mcpODataReporting.AppHost
         env:
           AZURE_REPORTING_DB: ${{ secrets.AZURE_REPORTING_DB }}
-        
+          
