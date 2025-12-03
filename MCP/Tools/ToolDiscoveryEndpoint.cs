@@ -18,7 +18,7 @@ public class ToolDiscoveryEndpoint
     }
 
     [Function("GetToolsMetadata")]
-    public HttpResponseData GetToolsMetadata(
+    public async Task<HttpResponseData> GetToolsMetadata(
         [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "mcp/tools")] 
         HttpRequestData req)
     {
@@ -37,11 +37,8 @@ public class ToolDiscoveryEndpoint
             var response = req.CreateResponse(System.Net.HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "application/json");
             
-            using (var writer = new StreamWriter(response.Body))
-            {
-                var json = JsonSerializer.Serialize(new { tools = toolMetadata });
-                writer.Write(json);
-            }
+            var json = JsonSerializer.Serialize(new { tools = toolMetadata });
+            await response.WriteStringAsync(json);
 
             return response;
         }
@@ -51,11 +48,8 @@ public class ToolDiscoveryEndpoint
             var response = req.CreateResponse(System.Net.HttpStatusCode.InternalServerError);
             response.Headers.Add("Content-Type", "application/json");
             
-            using (var writer = new StreamWriter(response.Body))
-            {
-                var json = JsonSerializer.Serialize(new { error = ex.Message });
-                writer.Write(json);
-            }
+            var json = JsonSerializer.Serialize(new { error = ex.Message });
+            await response.WriteStringAsync(json);
 
             return response;
         }

@@ -7,8 +7,6 @@ var reportingDb = builder.AddConnectionString("ReportingDb");
 
 var odataApi = builder
     .AddProject<Projects.ODataApi>("odataapi")
-    .WithExternalHttpEndpoints()
-    .WithHttpHealthCheck("/health")
     .WithReference(reportingDb)
     .PublishAsAzureContainerApp(
         (infra, app) =>
@@ -22,7 +20,14 @@ var odataApi = builder
 // https://learn.microsoft.com/en-us/azure/azure-functions/dotnet-aspire-integration
 builder
     .AddAzureFunctionsProject<Projects.McpODataReporting>("mcpodatareporting")
+    .WithExternalHttpEndpoints()
     .WithReference(odataApi)
-    .WaitFor(odataApi);
+    .WaitFor(odataApi)
+    .PublishAsAzureContainerApp(
+        (infra, app) =>
+        {
+            app.Template.Scale.MinReplicas = 0;
+        }
+    );
 
 builder.Build().Run();
