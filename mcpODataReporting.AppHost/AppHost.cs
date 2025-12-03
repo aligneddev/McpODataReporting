@@ -30,6 +30,7 @@ builder
     .WithReference(storage)
     .WaitFor(odataApi)
     .WaitFor(storage)
+    // ran into issues with DefaultAzureCredential in Functions runtime, so using explicit prod credentials
     .WithEnvironment("AZURE_TOKEN_CREDENTIALS", "prod")
     .PublishAsAzureContainerApp(
         (infra, app) =>
