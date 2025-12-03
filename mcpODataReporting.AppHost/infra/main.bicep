@@ -56,6 +56,22 @@ module mcpodatareporting_roles_funcstorage987d1 'mcpodatareporting-roles-funcsto
     principalId: mcpodatareporting_identity.outputs.principalId
   }
 }
+module mcpodatareporting_roles_storage 'mcpodatareporting-roles-storage/mcpodatareporting-roles-storage.module.bicep' = {
+  name: 'mcpodatareporting-roles-storage'
+  scope: rg
+  params: {
+    location: location
+    principalId: mcpodatareporting_identity.outputs.principalId
+    storage_outputs_name: storage.outputs.name
+  }
+}
+module storage 'storage/storage.module.bicep' = {
+  name: 'storage'
+  scope: rg
+  params: {
+    location: location
+  }
+}
 output APPCONTAINERENV_AZURE_CONTAINER_APPS_ENVIRONMENT_DEFAULT_DOMAIN string = appcontainerenv.outputs.AZURE_CONTAINER_APPS_ENVIRONMENT_DEFAULT_DOMAIN
 output APPCONTAINERENV_AZURE_CONTAINER_APPS_ENVIRONMENT_ID string = appcontainerenv.outputs.AZURE_CONTAINER_APPS_ENVIRONMENT_ID
 output APPCONTAINERENV_AZURE_CONTAINER_REGISTRY_ENDPOINT string = appcontainerenv.outputs.AZURE_CONTAINER_REGISTRY_ENDPOINT
@@ -67,3 +83,5 @@ output FUNCSTORAGE987D1_QUEUEENDPOINT string = funcstorage987d1.outputs.queueEnd
 output FUNCSTORAGE987D1_TABLEENDPOINT string = funcstorage987d1.outputs.tableEndpoint
 output MCPODATAREPORTING_IDENTITY_CLIENTID string = mcpodatareporting_identity.outputs.clientId
 output MCPODATAREPORTING_IDENTITY_ID string = mcpodatareporting_identity.outputs.id
+output STORAGE_BLOBENDPOINT string = storage.outputs.blobEndpoint
+output STORAGE_QUEUEENDPOINT string = storage.outputs.queueEndpoint

@@ -10,3 +10,5 @@ param funcstorage987d1_outputs_tableendpoint = '{{ .Env.FUNCSTORAGE987D1_TABLEEN
 param mcpodatareporting_containerimage = '{{ .Image }}'
 param mcpodatareporting_identity_outputs_clientid = '{{ .Env.MCPODATAREPORTING_IDENTITY_CLIENTID }}'
 param mcpodatareporting_identity_outputs_id = '{{ .Env.MCPODATAREPORTING_IDENTITY_ID }}'
+param storage_outputs_blobendpoint = '{{ .Env.STORAGE_BLOBENDPOINT }}'
+param storage_outputs_queueendpoint = '{{ .Env.STORAGE_QUEUEENDPOINT }}'

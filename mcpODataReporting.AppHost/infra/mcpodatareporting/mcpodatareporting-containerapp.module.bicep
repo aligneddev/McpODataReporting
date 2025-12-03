@@ -15,6 +15,10 @@ param funcstorage987d1_outputs_queueendpoint string
 
 param funcstorage987d1_outputs_tableendpoint string
 
+param storage_outputs_blobendpoint string
+
+param storage_outputs_queueendpoint string
+
 param mcpodatareporting_identity_outputs_clientid string
 
 param appcontainerenv_outputs_azure_container_registry_endpoint string
@@ -28,7 +32,7 @@ resource mcpodatareporting 'Microsoft.App/containerApps@2025-02-02-preview' = {
     configuration: {
       activeRevisionsMode: 'Single'
       ingress: {
-        external: false
+        external: true
         targetPort: 8080
         transport: 'http'
       }
@@ -105,19 +109,35 @@ resource mcpodatareporting 'Microsoft.App/containerApps@2025-02-02-preview' = {
             }
             {
               name: 'ODATAAPI_HTTP'
-              value: 'http://odataapi.${appcontainerenv_outputs_azure_container_apps_environment_default_domain}'
+              value: 'http://odataapi.internal.${appcontainerenv_outputs_azure_container_apps_environment_default_domain}'
             }
             {
               name: 'services__odataapi__http__0'
-              value: 'http://odataapi.${appcontainerenv_outputs_azure_container_apps_environment_default_domain}'
+              value: 'http://odataapi.internal.${appcontainerenv_outputs_azure_container_apps_environment_default_domain}'
             }
             {
               name: 'ODATAAPI_HTTPS'
-              value: 'https://odataapi.${appcontainerenv_outputs_azure_container_apps_environment_default_domain}'
+              value: 'https://odataapi.internal.${appcontainerenv_outputs_azure_container_apps_environment_default_domain}'
             }
             {
               name: 'services__odataapi__https__0'
-              value: 'https://odataapi.${appcontainerenv_outputs_azure_container_apps_environment_default_domain}'
+              value: 'https://odataapi.internal.${appcontainerenv_outputs_azure_container_apps_environment_default_domain}'
+            }
+            {
+              name: 'blobs__blobServiceUri'
+              value: storage_outputs_blobendpoint
+            }
+            {
+              name: 'blobs__queueServiceUri'
+              value: storage_outputs_queueendpoint
+            }
+            {
+              name: 'Aspire__Azure__Storage__Blobs__blobs__ServiceUri'
+              value: storage_outputs_blobendpoint
+            }
+            {
+              name: 'AZURE_TOKEN_CREDENTIALS'
+              value: 'prod'
             }
             {
               name: 'AZURE_CLIENT_ID'
@@ -131,7 +151,7 @@ resource mcpodatareporting 'Microsoft.App/containerApps@2025-02-02-preview' = {
         }
       ]
       scale: {
-        minReplicas: 1
+        minReplicas: 0
       }
     }
   }

@@ -29,7 +29,7 @@ resource odataapi 'Microsoft.App/containerApps@2025-02-02-preview' = {
       ]
       activeRevisionsMode: 'Single'
       ingress: {
-        external: true
+        external: false
         targetPort: int(odataapi_containerport)
         transport: 'http'
       }

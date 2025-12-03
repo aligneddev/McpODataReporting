@@ -30,6 +30,7 @@ builder
     .WithReference(storage)
     .WaitFor(odataApi)
     .WaitFor(storage)
+    .WithEnvironment("AZURE_TOKEN_CREDENTIALS", "prod")
     .PublishAsAzureContainerApp(
         (infra, app) =>
         {
