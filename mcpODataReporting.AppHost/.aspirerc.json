@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json.schemastore.org/aspirerc.schema.json",
+  "services": {
+    "blazor": {
+      "description": "Blazor Web App - OData Reporting UI",
+      "ports": {
+        "http": 5000,
+        "https": 5001
+      }
+    },
+    "mcpodatareporting": {
+      "description": "Azure Functions - MCP Tools and OData Tool Implementation",
+      "ports": {
+        "http": 7071
+      }
+    },
+    "odataapi": {
+      "description": "OData API - Backend data source",
+      "ports": {
+        "http": 8000,
+        "https": 8001
+      }
+    }
+  },
+  "notes": "Port numbers are configured as sticky in appsettings.Development.json with 'Aspire.Hosting.DcpDefaults.StickyPorts': true"
+}

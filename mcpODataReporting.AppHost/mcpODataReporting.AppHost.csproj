@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MCP\McpODataReporting.csproj" />
     <ProjectReference Include="..\ODataApi\ODataApi.csproj" />
+    <ProjectReference Include="..\mcpODataReporting.Blazor\mcpODataReporting.Blazor.csproj" />
   </ItemGroup>
 
   <ItemGroup>

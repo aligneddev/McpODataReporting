@@ -1,0 +1,223 @@
+@page "/chat"
+@rendermode InteractiveServer
+@using mcpODataReporting.Blazor.Services
+@using Microsoft.Extensions.AI
+@inject McpChatService ChatService
+@inject ILogger<Chat> Logger
+
+<PageTitle>Counter</PageTitle>
+<div class="chat-container">
+    <div class="chat-header">
+        <h2>OData Reporting Chat</h2>
+        <p class="subtitle">Chat with AI to explore your OData reporting data</p>
+    </div>
+
+    @if (!toolsLoaded)
+    {
+        <div class="loading-spinner">
+            <p>Loading available tools...</p>
+        </div>
+    }
+    else
+    {
+        <div class="chat-main">
+            <div class="messages-area">
+                @foreach (var message in messages)
+                {
+                    <div class="message @(message.IsUser ? "user-message" : "assistant-message")">
+                        <div class="message-avatar">
+                            @if (message.IsUser)
+                            {
+                                <span>??</span>
+                            }
+                            else
+                            {
+                                <span>??</span>
+                            }
+                        </div>
+                        <div class="message-content">
+                            <div class="message-text">@message.Content</div>
+                            @if (!string.IsNullOrEmpty(message.ToolName))
+                            {
+                                <div class="tool-info">
+                                    <span class="tool-badge">Tool: @message.ToolName</span>
+                                    @if (!string.IsNullOrEmpty(message.ToolResult))
+                                    {
+                                        <div class="tool-result">
+                                            <strong>Result:</strong>
+                                            <pre>@message.ToolResult</pre>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="input-area">
+                <div class="input-group">
+                    <input @bind="UserInput"
+                           @bind:event="oninput"
+                           placeholder="Ask about your OData data..."
+                           @onkeydown="HandleKeyDown"
+                           disabled="@isProcessing"
+                           class="message-input"></input>
+                    <button @onclick="SendMessage"
+                            disabled="@(isProcessing || string.IsNullOrWhiteSpace(UserInput))"
+                            class="send-button">
+                        @if (isProcessing)
+                        {
+                            <span>? Processing...</span>
+                        }
+                        else
+                        {
+                            <span>Send</span>
+                        }
+                    </button>
+                </div>
+            </div>
+
+            @if (availableTools.Any())
+            {
+                <div class="tools-info">
+                    <details>
+                        <summary>Available Tools (@availableTools.Count)</summary>
+                        <div class="tools-list">
+                            @foreach (var tool in availableTools)
+                            {
+                                <div class="tool-item">
+                                    <h4>@tool.Name</h4>
+                                    <p>@tool.Description</p>
+                                </div>
+                            }
+                        </div>
+                    </details>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    private string userInput = "";
+    private List<ChatMessage> messages = [];
+    private List<McpTool> availableTools = [];
+    private bool toolsLoaded = false;
+    private bool isProcessing = false;
+
+    private string UserInput
+    {
+        get => userInput;
+        set
+        {
+            userInput = value ?? "";
+           
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            // Initialize MCP tools for the chat client
+            await ChatService.InitializeToolsAsync();
+
+            var toolsResponse = await ChatService.GetAvailableToolsAsync();
+            if (toolsResponse != null)
+            {
+                availableTools = toolsResponse.Tools;
+                toolsLoaded = true;
+                Logger.LogInformation("Loaded {ToolCount} tools", availableTools.Count);
+            }
+            else
+            {
+                toolsLoaded = true;
+                Logger.LogWarning("Failed to load tools");
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error loading tools");
+            toolsLoaded = true;
+        }
+    }
+
+    private async Task SendMessage()
+    {
+        Logger.LogInformation("SendMessage called. isProcessing={IsProcessing}, userInput='{UserInput}'", isProcessing, UserInput);
+
+        if (string.IsNullOrWhiteSpace(UserInput) || isProcessing)
+        {
+            Logger.LogWarning("SendMessage blocked: isProcessing={IsProcessing}, userInputEmpty={UserInputEmpty}", isProcessing, string.IsNullOrWhiteSpace(UserInput));
+            return;
+        }
+
+        isProcessing = true;
+        var userMessage = UserInput;
+        UserInput = "";
+        StateHasChanged(); // Update UI immediately after clearing input
+
+        // Add user message to UI
+        messages.Add(new ChatMessage
+        {
+            Content = userMessage,
+            IsUser = true,
+            Timestamp = DateTime.Now
+        });
+
+        try
+        {
+            Logger.LogInformation("Processing user message: {Message}", userMessage);
+
+            // Stream response from IChatClient
+            var assistantMessage = new ChatMessage
+            {
+                Content = "",
+                IsUser = false,
+                Timestamp = DateTime.Now
+            };
+            messages.Add(assistantMessage);
+
+            await foreach (var update in ChatService.StreamMessageAsync(userMessage))
+            {
+                assistantMessage.Content += update.Text;
+                StateHasChanged(); // Update UI as streaming progresses
+            }
+
+            Logger.LogInformation("Received response from IChatClient");
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error sending message");
+            messages.Add(new ChatMessage
+            {
+                Content = $"Error: {ex.Message}",
+                IsUser = false,
+                Timestamp = DateTime.Now
+            });
+        }
+        finally
+        {
+            isProcessing = false;
+            StateHasChanged(); // Ensure button is re-enabled
+        }
+    }
+
+    private async Task HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter" && e.CtrlKey)
+        {
+            await SendMessage();
+        }
+    }
+
+    private class ChatMessage
+    {
+        public string Content { get; set; } = "";
+        public bool IsUser { get; set; }
+        public DateTime Timestamp { get; set; }
+        public string? ToolName { get; set; }
+        public string? ToolResult { get; set; }
+    }
+}

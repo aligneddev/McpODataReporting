@@ -33,16 +33,5 @@ toolRegistry.RegisterTool(ToolDefinitions.GetODataMetadataToolName, ToolDefiniti
 builder.Services.AddSingleton(toolRegistry);
 
 
-// ASP.NET Core Program.cs / minimal API
-app.MapGet("/mcp/.well-known/oauth-authorization-server", () =>
-    Results.Json(new
-    {
-        authorization_endpoint = $"https://login.microsoftonline.com/{tenantId}/oauth2/v2.0/authorize",
-        token_endpoint = $"https://login.microsoftonline.com/{tenantId}/oauth2/v2.0/token",
-        issuer = $"https://login.microsoftonline.com/{tenantId}/v2.0",
-        scopes_supported = new[] { "api://<your-app-id-uri>/.default" }
-    }));
-
-
 builder.Build().Run();
 

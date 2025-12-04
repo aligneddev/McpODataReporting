@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "McpODataReporting", "MCP\Mc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{08F64679-FC5A-4F22-9B09-66F2733EAE25}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mcpODataReporting.Blazor", "mcpODataReporting.Blazor\mcpODataReporting.Blazor.csproj", "{ECB5D96A-0B9D-FF9C-28D6-226A0ABE4826}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,10 @@ Global
 		{BFFF66A9-5CB9-1599-8A73-3E927FF1C1A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFFF66A9-5CB9-1599-8A73-3E927FF1C1A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFFF66A9-5CB9-1599-8A73-3E927FF1C1A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECB5D96A-0B9D-FF9C-28D6-226A0ABE4826}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECB5D96A-0B9D-FF9C-28D6-226A0ABE4826}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECB5D96A-0B9D-FF9C-28D6-226A0ABE4826}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECB5D96A-0B9D-FF9C-28D6-226A0ABE4826}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
