@@ -143,6 +143,10 @@ resource mcpodatareporting 'Microsoft.App/containerApps@2025-02-02-preview' = {
               name: 'AZURE_CLIENT_ID'
               value: mcpodatareporting_identity_outputs_clientid
             }
+            {
+              name: 'AZURE_TOKEN_CREDENTIALS'
+              value: 'ManagedIdentityCredential'
+            }
           ]
         }
       ]

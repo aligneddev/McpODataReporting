@@ -14,12 +14,8 @@ param principalId string = ''
 
 @secure()
 param ReportingDb string
-
-@description('Azure OpenAI endpoint URL')
-param AZURE_OPENAI_ENDPOINT string
-
-@description('Azure OpenAI deployment name')
-param AZURE_OPENAI_DEPLOYMENT_NAME string
+param azure_openai_deployment_name string
+param azure_openai_endpoint string
 
 var tags = {
   'azd-env-name': environmentName
@@ -91,5 +87,3 @@ output MCPODATAREPORTING_IDENTITY_CLIENTID string = mcpodatareporting_identity.o
 output MCPODATAREPORTING_IDENTITY_ID string = mcpodatareporting_identity.outputs.id
 output STORAGE_BLOBENDPOINT string = storage.outputs.blobEndpoint
 output STORAGE_QUEUEENDPOINT string = storage.outputs.queueEndpoint
-output AZURE_OPENAI_ENDPOINT string = AZURE_OPENAI_ENDPOINT
-output AZURE_OPENAI_DEPLOYMENT_NAME string = AZURE_OPENAI_DEPLOYMENT_NAME

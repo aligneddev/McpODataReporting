@@ -8,11 +8,11 @@
       "ReportingDb": {
         "value": "${AZURE_REPORTING_DB}"
       },
-      "AZURE_OPENAI_ENDPOINT": {
-        "value": "${AZURE_OPENAI_ENDPOINT}"
+      "azure_openai_deployment_name": {
+        "value": "${AZURE_AZURE_OPENAI_DEPLOYMENT_NAME}"
       },
-      "AZURE_OPENAI_DEPLOYMENT_NAME": {
-        "value": "${AZURE_OPENAI_DEPLOYMENT_NAME}"
+      "azure_openai_endpoint": {
+        "value": "${AZURE_AZURE_OPENAI_ENDPOINT}"
       },
       "environmentName": {
         "value": "${AZURE_ENV_NAME}"
@@ -22,3 +22,4 @@
       }
     }
   }
+  
