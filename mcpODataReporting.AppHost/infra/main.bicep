@@ -14,9 +14,7 @@ param principalId string = ''
 
 @secure()
 param ReportingDb string
-@minLength(1)
 param azure_openai_deployment_name string
-@minLength(1)
 param azure_openai_endpoint string
 
 var tags = {

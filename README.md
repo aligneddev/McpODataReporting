@@ -241,10 +241,10 @@ Since this is using Aspire, you must be in the \mcpODataReporting.AppHost direct
 the .azure folder will be in this folder as well.
 
 `azd init` to initialize the project
+`azd infra gen` will create the bicep file in the `infra` directory 
 
 `azd pipeline config` setup GitHub Actions for CI/CD  (run this again after adding new or updating existing environment variables). It will push the values into the GitHub Secrets/Variables for you.
 
-`azd infra gen` will create the bicep file in the `infra` directory 
 `azd up` to create the infrastructure and provision, but can be separated to provision and deploy
   `azd provision` it will prompt you for your Azure SQL connection string and create a new Resource Group
   `azd deploy` to deploy the application

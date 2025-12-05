@@ -45,13 +45,9 @@ jobs:
         working-directory: mcpODataReporting.AppHost
         env:
           AZURE_REPORTING_DB: ${{ secrets.AZURE_REPORTING_DB }}
-          AZURE_OPENAI_DEPLOYMENT_NAME: ${{ secrets.AZURE_OPENAI_DEPLOYMENT_NAME }}
-          AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
 
       - name: Deploy Application (azd)
         run: azd deploy --no-prompt
         working-directory: mcpODataReporting.AppHost
         env:
           AZURE_REPORTING_DB: ${{ secrets.AZURE_REPORTING_DB }}
-          AZURE_OPENAI_DEPLOYMENT_NAME: ${{ secrets.AZURE_OPENAI_DEPLOYMENT_NAME }}
-          AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
