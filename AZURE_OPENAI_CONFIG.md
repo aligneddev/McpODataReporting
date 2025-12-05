@@ -38,7 +38,7 @@ cd mcpODataReporting.AppHost
 azd env set AZURE_OPENAI_ENDPOINT "https://your-resource.cognitiveservices.azure.com/"
 
 # Set the deployment name
-azd env set AZURE_OPENAI_DEPLOYMENT_NAME "gpt-4.1-mini"
+azd env set AZURE_OPENAI_DEPLOYMENT_NAME "gpt-5-mini"
 ```
 
 ### Environment File
@@ -51,7 +51,7 @@ mcpODataReporting.AppHost\.azure\{environment-name}\.env
 Add these lines:
 ```env
 AZURE_OPENAI_ENDPOINT="https://your-resource.cognitiveservices.azure.com/"
-AZURE_OPENAI_DEPLOYMENT_NAME="gpt-4.1-mini"
+AZURE_OPENAI_DEPLOYMENT_NAME="gpt-5-mini"
 ```
 
 ## GitHub Actions
@@ -87,7 +87,7 @@ Based on the discovered resources:
 - **Resource Group**: klAI
 - **Endpoint**: https://kl-demo-hub-resource.cognitiveservices.azure.com/
 - **Available Deployments**:
-  - gpt-4.1-mini
+  - gpt-5-mini
   - text-embedding-3-small
 
 ## Troubleshooting
