@@ -3,23 +3,22 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
       "principalId": {
-        "value": "${AZURE_PRINCIPAL_ID}"
+        "value": ""
       },
       "ReportingDb": {
-        "value": "${AZURE_REPORTING_DB}"
+        "value": ""
       },
       "azure_openai_deployment_name": {
-        "value": "${AZURE_AZURE_OPENAI_DEPLOYMENT_NAME}"
+        "value": ""
       },
       "azure_openai_endpoint": {
-        "value": "${AZURE_AZURE_OPENAI_ENDPOINT}"
+        "value": ""
       },
       "environmentName": {
-        "value": "${AZURE_ENV_NAME}"
+        "value": ""
       },
       "location": {
-        "value": "${AZURE_LOCATION}"
+        "value": ""
       }
     }
   }
-  
