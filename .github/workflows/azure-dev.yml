@@ -14,23 +14,16 @@ permissions:
   id-token: write
   contents: read
 
-
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
-      AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
-      AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-      AZURE_AZURE_OPENAI_DEPLOYMENT_NAME: ${{ vars.AZURE_AZURE_OPENAI_DEPLOYMENT_NAME }}
-      AZURE_AZURE_OPENAI_ENDPOINT: ${{ vars.AZURE_AZURE_OPENAI_ENDPOINT }}
-      AZURE_ENV_NAME: ${{ vars.AZURE_ENV_NAME }}
-      AZURE_LOCATION: ${{ vars.AZURE_LOCATION }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        
       - name: Install azd
         uses: Azure/setup-azd@v2
+        
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
@@ -48,10 +41,24 @@ jobs:
         run: azd provision --no-prompt
         working-directory: mcpODataReporting.AppHost
         env:
+          AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+          AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+          AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+          AZURE_ENV_NAME: ${{ vars.AZURE_ENV_NAME }}
+          AZURE_LOCATION: ${{ vars.AZURE_LOCATION }}
+          AZURE_AZURE_OPENAI_DEPLOYMENT_NAME: ${{ vars.AZURE_AZURE_OPENAI_DEPLOYMENT_NAME }}
+          AZURE_AZURE_OPENAI_ENDPOINT: ${{ vars.AZURE_AZURE_OPENAI_ENDPOINT }}
           AZURE_REPORTING_DB: ${{ secrets.AZURE_REPORTING_DB }}
 
       - name: Deploy Application (azd)
         run: azd deploy --no-prompt
         working-directory: mcpODataReporting.AppHost
         env:
+          AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+          AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+          AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+          AZURE_ENV_NAME: ${{ vars.AZURE_ENV_NAME }}
+          AZURE_LOCATION: ${{ vars.AZURE_LOCATION }}
+          AZURE_AZURE_OPENAI_DEPLOYMENT_NAME: ${{ vars.AZURE_AZURE_OPENAI_DEPLOYMENT_NAME }}
+          AZURE_AZURE_OPENAI_ENDPOINT: ${{ vars.AZURE_AZURE_OPENAI_ENDPOINT }}
           AZURE_REPORTING_DB: ${{ secrets.AZURE_REPORTING_DB }}
