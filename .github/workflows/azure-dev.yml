@@ -39,7 +39,7 @@ jobs:
 
       - name: Provision Infrastructure (azd)
         run: azd provision --no-prompt
-        working-directory: mcpODataReporting.AppHost
+        working-directory: ./mcpODataReporting.AppHost
         env:
           AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
           AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
@@ -52,7 +52,7 @@ jobs:
 
       - name: Deploy Application (azd)
         run: azd deploy --no-prompt
-        working-directory: mcpODataReporting.AppHost
+        working-directory: ./mcpODataReporting.AppHost
         env:
           AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
           AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
